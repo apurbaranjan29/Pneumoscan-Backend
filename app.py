@@ -57,7 +57,7 @@ async def predict(image: UploadFile = File(...)):
 
 # Serve frontend (React build)
 frontend_path = os.environ.get("FRONTEND_PATH", "../PneumoScan/dist")
-app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+# app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=PORT)
