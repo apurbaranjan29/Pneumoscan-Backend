@@ -10,7 +10,7 @@ import os
 
 # Environment variables
 MODEL_PATH = os.environ.get("MODEL_PATH", "PneumoScanModel/pneumonia_detection_ai_version_2.h5")
-PORT = int(os.environ.get("PORT", 5000))
+PORT = int(os.environ.get("PORT", 10000))
 
 app = FastAPI()
 
