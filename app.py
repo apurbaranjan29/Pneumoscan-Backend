@@ -17,7 +17,7 @@ app = FastAPI()
 # Allow CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://pneumoscan-tl2m.onrender.com/"],  # frontend URL
+    allow_origins=["*"],  # frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -33,6 +33,7 @@ print("Model input shape:", model.input_shape)
 @app.post("/predict")
 async def predict(image: UploadFile = File(...)):
     try:
+        print("Code starts")
         contents = await image.read()
         img = Image.open(io.BytesIO(contents)).convert("L")  # grayscale
         img = img.resize((200, 200))  # adjust to your model input
