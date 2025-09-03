@@ -8,7 +8,7 @@ import numpy as np
 import io
 import os
 
-# Environment variables
+# Environment variablesa
 MODEL_PATH = os.environ.get("MODEL_PATH", "PneumoScanModel/pneumonia_detection_ai_version_2.h5")
 PORT = int(os.environ.get("PORT", 10000))
 
@@ -42,15 +42,15 @@ async def predict(image: UploadFile = File(...)):
         x = np.expand_dims(x, axis=0)   # (1,H,W,1)
 
         preds = model.predict(x)
-        pneumonia_prob = float(preds[0][0])
-        normal_prob = 1 - pneumonia_prob
-        result_label = "PNEUMONIA" if pneumonia_prob >= normal_prob else "NORMAL"
+        normal_prob = float(preds[0][0])
+        pneumonia_prob = 1 - normal_prob
+        result_label = "NORMAL" if normal_prob >= pneumonia_prob else "PNEUMONIA"
 
         return {
             "result": result_label,
-            "probability":max(pneumonia_prob,normal_prob),
-            "pneumonia_probability": pneumonia_prob,
-            "normal_probability": normal_prob
+            "probability":max(normal_prob,pneumonia_prob),
+            "normal_probability": normal_prob,
+            "pneumonia_probability": pneumonia_prob
         }
 
     except Exception as e:
